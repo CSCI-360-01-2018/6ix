@@ -22,3 +22,4 @@
 1. disable ringing alarm
     * alarm is disabled via button
 1. enable radio
+    * enable/disable radio play at current frequency with toggle
