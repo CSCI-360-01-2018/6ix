@@ -3,29 +3,35 @@ import java.util.TimerTask;
 
 public class Alarm {
 	String name;
-	boolean alarmIsSet;
 	int alarmHour;
 	int alarmMinute;
-	boolean snoozeOn;
-	boolean alarmIsOn;
+	boolean snoozeOn; // is the alarm in snooze mode?
+	boolean alarmIsOn; // is the alarm currently sounding?
+	boolean alarmIsSet; // is the alarm going to go off when the time comes?
 	boolean alarmSounding = false;
-	final static int SNOOZETIME = 600000; // 10 minutes in milliseconds
+//	final static int SNOOZETIME = 600000; // 10 minutes in milliseconds CHANGE FOR SUBMISSION
+	final static int SNOOZETIME = 5000; // 50 secs in milliseconds
 	
 	public Alarm( int alarmClockNum ){
 		name = (alarmClockNum == 1) ? "Alarm 1" : "Alarm 2";
-		alarmIsSet = false;
 		snoozeOn = false;
+		alarmIsSet = false;
 		alarmHour = 0;
 		alarmMinute = 0;
 		alarmIsOn = false;
 	}
+	
+	public void toggleAlarmIsSet(boolean setting){
+		alarmIsSet = (setting) ? true : false;
+		if (alarmIsSet){
+			alarmIsOn = true;
+		} else {
+			alarmIsOn = false;
+		}
+	}
 
 	public void toggleAlarmIsOn(boolean setting){
 		alarmIsOn = (setting) ? true : false;
-	}
-	
-	public void toggleAlarmIsSet(){
-		alarmIsSet = !alarmIsSet;
 	}
 	
 	public void setAlarmHour( int hour ){
@@ -42,6 +48,10 @@ public class Alarm {
 	
 	public int getAlarmMinute(){
 		return alarmMinute;
+	}
+	
+	public boolean isSnoozing(){
+		return snoozeOn;
 	}
 	
 //	public String getAlarmTime(){
@@ -62,38 +72,43 @@ public class Alarm {
 //	}
 	
 	public void snoozeAlarm(){
+		System.out.println("\nAlarm " + name + " is snoozing");
+		
 		snoozeOn = true;
+		alarmIsOn = false;
+		
 		Timer snooze = new Timer();
-		snooze.scheduleAtFixedRate(new TimerTask() {
+		snooze.schedule(new TimerTask() {
             @Override
             public void run() {
-	            if (!alarmIsOn){
-	            	snooze.cancel();
-	            	snoozeOn = false;
-	            	System.out.println("snooze cancelled");
-	            } else {
-	            	soundAlarm();
-	            } 
+            	
+            	
+            	System.out.println("\nfinished snoozing");
+            	
+            	alarmIsOn = true;
+            	snoozeOn = false;
             }
-		}, 0, 5000); // Make sure this is SNOOZETIME for "production"!
+		}, SNOOZETIME);
+		
+		System.out.println("\n...time continues");
 	}
 	
 	public void soundAlarm(){ // need to change to playing some kind of mp3 file!
 		if (alarmIsOn){
-			System.out.println("beeep beeeep beeeeeep beeep beeeep!!!!");
+			System.out.println(this.name + ": beeep beeeep beeeeeep beeep beeeep!!!!");
 		}
 	}
 	
-	public void turnAlarmOff(){
+	public void turnAlarmSoundOff(){
 		alarmIsOn = false;
 	}
 
 	public static void main(String[] args) {
 		Alarm a = new Alarm(1);
 		//System.out.println(a.getAlarmTime());
-		a.setAlarmHour(8);
+		a.setAlarmHour(1);
 		a.setAlarmMinute(1);
-		//System.out.println(a.getAlarmTime());
+		System.out.println();
 		
 		
 
@@ -103,15 +118,15 @@ public class Alarm {
 		
 		a.toggleAlarmIsOn(true);
 		a.snoozeAlarm();
-
-		Timer t = new Timer(); 
-		t.schedule(new TimerTask() {
-            @Override
-            public void run() {
-	            a.toggleAlarmIsOn(false);
-	            System.out.println("alarm turned off");
-            }
-		}, 15000);
+//
+//		Timer t = new Timer(); 
+//		t.schedule(new TimerTask() {
+//            @Override
+//            public void run() {
+//	            a.toggleAlarmIsOn(false);
+//	            System.out.println("alarm turned off");
+//            }
+//		}, 15000);
 		
 		
 	}

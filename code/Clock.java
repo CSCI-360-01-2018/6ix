@@ -2,14 +2,15 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class Clock {
-	boolean isMilitary = false;
-	Alarm alarm1;
-	Alarm alarm2;
-	Timer time; 
-	int hour;
-	int minute;
-	int seconds;
-	boolean timeStopped = true;
+	private boolean isMilitary = false;
+	private Alarm alarm1;
+	private Alarm alarm2;
+	private Timer time; 
+	private int hour;
+	private int minute;
+	public int seconds;
+	private boolean timeStopped = true;
+	private static int ONE_SEC = 1000; // 1 second in milliseconds
 	
 	public Clock(){
 		time = new Timer();
@@ -34,19 +35,18 @@ public class Clock {
 	            	if (minute == 60){
 	            		minute = 0;
 	            		hour++;
-	            		checkForAlarm();
 	            	}
 	            	if (hour == 24){
 	            		hour = 0;
 	            	}
-	            	//System.out.println(getFullTime());
-	            	
+	            	System.out.println(getFullTime());
+	            	checkForAlarm();
             	} else {
             		System.out.println("stopping time");
             		stopTime();
             	}
             }
-		}, 0, 1000); // 1 second
+		}, 0, ONE_SEC); // 1 second
 	}
 	
 	public void stopTime(){
@@ -109,8 +109,14 @@ public class Clock {
 		return String.format("%s:%s", hourFormatted, minFormatted);
 	}
 	
-	public void toggleMilitaryFormat(){
-		isMilitary = !isMilitary;
+	public void changeStandardMilitaryFormat(String format){
+		if (format.equals("military")){
+			isMilitary = true;
+			System.out.println("Clock time set to military.");
+		} else {
+			isMilitary = false;
+			System.out.println("Clock time set to standard.");
+		}
 	}
 	
 	public String getFormattedTime(){
@@ -138,10 +144,10 @@ public class Clock {
 	}
 	
 	public void checkForAlarm(){
-		if (this.getTime().equals(this.getAlarmTime(1))){
+		if (this.getTime().equals(this.getAlarmTime(1)) && alarm1.alarmIsSet){
 			alarm1.soundAlarm();
 		}
-		if (this.getTime().equals(this.getAlarmTime(2))){
+		if (this.getTime().equals(this.getAlarmTime(2)) && alarm2.alarmIsSet){
 			alarm2.soundAlarm();
 		}
 	}
@@ -173,7 +179,6 @@ public class Clock {
 		}
 		
 		int hour = alarm.getAlarmHour();
-		System.out.println(hour);
 		
 		if (!isMilitary){
 			if ((hour % 12) < 10){
