@@ -1,0 +1,81 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Mar 3, 2018, 3:26:04 PM
+    Author     : MeganLandau
+*/
+
+.root {
+     -fx-background-color: white;
+     -fx-text-fill: #FDF6E4;
+     -fx-font-size: 16px;
+}
+
+#center{
+    -fx-background-color:#2B4E74;
+    -fx-text-fill: #FDF6E4;
+}
+
+.label{
+    -fx-text-fill: #FDF6E4;
+    -fx-line-spacing: 10px;
+    -fx-wrap-text: true;
+    -fx-text-alignment:center;
+    -fx-alignment:CENTER;
+}
+
+@font-face {
+   font-family: 'FontAwesome';
+   src: url('fontawesome-webfont.ttf');
+}
+
+@font-face {
+   font-family: 'OpenSans';
+   src: url('OpenSans-Regular.ttf');
+}
+
+#name{
+     -fx-pref-width: 200px;
+     -fx-max-width: 200px;
+     -fx-padding: 20px;
+}
+
+.text-field{
+    -fx-pref-width: 200px;
+    -fx-alignment:CENTER;
+}
+
+#top-bar{
+    -fx-background-color: #B3C1C1;
+}
+#heading{
+    -fx-background-color: #FDF6E4;
+    -fx-text-fill: #0E1C25;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-padding: 20px;
+    -fx-pref-width: 400px;
+}
+
+#bottom-button{
+    -fx-border-radius: 0px;
+    -fx-background-radius: 0px;
+    -fx-pref-width: 400px;
+    -fx-padding: 20px;
+    -fx-background-color: #F2A172;
+    -fx-text-fill: #FDF6E4;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+}
+
+#icon{
+    -fx-padding: 10px;
+    -fx-font-size: 26px;
+}
+
+#bottom-bar{
+    -fx-background-color: #E0634D;
+}
