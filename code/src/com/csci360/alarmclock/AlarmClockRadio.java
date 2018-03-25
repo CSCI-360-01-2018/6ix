@@ -18,6 +18,18 @@ public class AlarmClockRadio {
 		
 		System.out.println("Alarm Clock Radio initialized. Please set the current time.");
 	}
+        
+        public Clock getClock(){
+            return this.clock;
+        }
+        
+        public Alarm getAlarm(int alarmNum){
+            return this.clock.getAlarm(alarmNum);
+        }
+        
+        public Radio getRadio(){
+            return this.radio;
+        }
 	
 	public void setTime(int hour, int minute){
 		clock.setTime(hour, minute);

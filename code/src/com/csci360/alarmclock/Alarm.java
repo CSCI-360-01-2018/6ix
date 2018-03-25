@@ -28,12 +28,12 @@ public class Alarm {
 	}
 	
 	public void toggleAlarmIsSet(boolean setting){
-		alarmIsSet = (setting) ? true : false;
-		if (alarmIsSet){
-			alarmIsOn = true;
-		} else {
-			alarmIsOn = false;
-		}
+            alarmIsSet = (setting) ? true : false;
+//            if (alarmIsSet){
+//                    alarmIsOn = true;
+//            } else {
+//                    alarmIsOn = false;
+//            }
 	}
 
 	public void toggleAlarmIsOn(boolean setting){
@@ -85,17 +85,17 @@ public class Alarm {
 		
 		Timer snooze = new Timer();
 		snooze.schedule(new TimerTask() {
-            @Override
-            public void run() {
-            	
-            	
-            	System.out.println("\nfinished snoozing");
-            	
-            	alarmIsOn = true;
-            	snoozeOn = false;
-            }
-		}, SNOOZETIME);
-		
+                @Override
+                public void run() {
+
+
+                    System.out.println("\nfinished snoozing");
+
+                    alarmIsOn = true;
+                    snoozeOn = false;
+                    }
+                }, SNOOZETIME);
+
 		System.out.println("\n...time continues");
 	}
 	

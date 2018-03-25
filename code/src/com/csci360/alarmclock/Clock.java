@@ -9,7 +9,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class Clock {
-	private boolean isMilitary = false;
+	public boolean isMilitary = false;
 	private Alarm alarm1;
 	private Alarm alarm2;
 	private Timer time; 
@@ -36,6 +36,7 @@ public class Clock {
             	if (!timeStopped){
 	            	seconds++;
 	            	if (seconds == 60){ 
+//                            checkForAlarm();
 	            		minute++;
 	            		seconds = 0;
 	            	}
@@ -47,7 +48,10 @@ public class Clock {
 	            		hour = 0;
 	            	}
 	            	System.out.println(getFullTime());
-	            	checkForAlarm();
+//	            	checkForAlarm();
+                        if (seconds == 0){ 
+                            checkForAlarm();
+                        }
             	} else {
             		System.out.println("stopping time");
             		stopTime();
@@ -68,6 +72,14 @@ public class Clock {
 		minute = newMin;
 		startTime();
 	}
+        
+        public int getHour(){
+            return this.hour;
+        }
+        
+        public int getMinute(){
+            return this.minute;
+        }
 	
 	public String getFullTime(){
 		String secFormatted = Integer.toString(seconds);
@@ -82,10 +94,13 @@ public class Clock {
 		
 		String hourFormatted;
 		if (!isMilitary){
-			hourFormatted = Integer.toString(hour % 12);
-			if ((hour % 12) < 10){
-				hourFormatted = "0" + Integer.toString(hour % 12);
-			}
+                    if (hour == 12 || hour == 0){
+                        hourFormatted = "12";
+                    } else if (hour < 10 || (hour % 12) < 10){
+                        hourFormatted = "0" + Integer.toString(hour % 12);
+                    } else {
+                        hourFormatted = Integer.toString(hour % 12);
+                    }
 		} else { // Military time
 			hourFormatted = Integer.toString(hour);
 			if (hour < 10){
@@ -103,10 +118,13 @@ public class Clock {
 		
 		String hourFormatted;
 		if (!isMilitary){
-			hourFormatted = Integer.toString(hour % 12);
-			if ((hour % 12) < 10){
-				hourFormatted = "0" + Integer.toString(hour % 12);
-			}
+                    if (hour == 12 || hour == 0){
+                        hourFormatted = "12";
+                    } else if (hour < 10 || (hour % 12) < 10){
+                        hourFormatted = "0" + Integer.toString(hour % 12);
+                    } else {
+                        hourFormatted = Integer.toString(hour % 12);
+                    }
 		} else { // Military time
 			hourFormatted = Integer.toString(hour);
 			if (hour < 10){
@@ -151,11 +169,14 @@ public class Clock {
 	}
 	
 	public void checkForAlarm(){
+            System.out.println("checking for alarm");
 		if (this.getTime().equals(this.getAlarmTime(1)) && alarm1.alarmIsSet){
-			alarm1.soundAlarm();
+                    alarm1.toggleAlarmIsOn(true);
+                    alarm1.soundAlarm();
 		}
 		if (this.getTime().equals(this.getAlarmTime(2)) && alarm2.alarmIsSet){
-			alarm2.soundAlarm();
+                    alarm2.toggleAlarmIsOn(true);
+                    alarm2.soundAlarm();
 		}
 	}
 	
@@ -188,11 +209,18 @@ public class Clock {
 		int hour = alarm.getAlarmHour();
 		
 		if (!isMilitary){
-			if ((hour % 12) < 10){
-				hourFormatted = "0" + Integer.toString(hour % 12);
-			} else {
-				hourFormatted = Integer.toString(hour % 12);
-			}
+                        if (hour == 12 || hour == 0){
+                            hourFormatted = "12";
+                        } else if (hour < 10 || (hour % 12) < 10){
+                            hourFormatted = "0" + Integer.toString(hour % 12);
+                        } else {
+                            hourFormatted = Integer.toString(hour % 12);
+                        }
+//			if ((hour % 12) < 10){
+//				hourFormatted = "0" + Integer.toString(hour % 12);
+//			} else {
+//				hourFormatted = Integer.toString(hour % 12);
+//			}
 			return String.format("%s:%s", hourFormatted, minFormatted);
 		} else {
 			if (hour < 10){
@@ -206,7 +234,7 @@ public class Clock {
 	
 	public static void main(String[] args) {
 		Clock c = new Clock();
-		//c.setTime(3, 8);
+		c.setTime(12, 8);
 		//c.toggleMilitaryFormat();
 		
 		// testing the setTime() function

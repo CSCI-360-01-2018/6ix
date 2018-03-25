@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import com.csci360.alarmclock.AppController?>
+<?import java.net.URL?>
+
+<StackPane fx:controller="com.csci360.alarmclock.AppController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="340.0" prefWidth="802.0" style="-fx-background-color: dce2de;" xmlns="http://javafx.com/javafx/9.0.4" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Rectangle arcHeight="10.0" arcWidth="10.0" fill="TRANSPARENT" height="302.0" stroke="#afb8b5" strokeType="INSIDE" strokeWidth="3.0" width="770.0" />
+      <Pane prefHeight="368.0" prefWidth="790.0">
+         <children>
+            <Button fx:id="snoozeButton" alignment="BOTTOM_CENTER" layoutX="31.0" layoutY="31.0" mnemonicParsing="false" onAction="#snooze" prefHeight="50.0" prefWidth="509.0" style="-fx-effect: null; -fx-background-color: fe8f2d; -fx-background-radius: 4px;" text="SNOOZE" textFill="#63665b">
+               <font>
+                  <Font name="Orbitron Regular" size="15.0" />
+               </font>
+            </Button>
+            <Pane layoutX="30.0" layoutY="91.0" prefHeight="110.0" prefWidth="510.0" style="-fx-background-color: #45463f; -fx-background-radius: 7; -fx-border-color: #afb8b5; -fx-border-radius: 4; -fx-border-width: 3px;">
+               <children>
+                  <Label fx:id="timeLabel" alignment="CENTER" layoutX="12.0" layoutY="-6.0" prefHeight="122.0" prefWidth="357.0" text="00:00" textFill="#dc6a02">
+                     <font>
+                        <Font name="Orbitron Medium" size="100.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="amLabel" alignment="CENTER" layoutX="373.0" layoutY="8.0" prefHeight="51.0" prefWidth="80.0" text="AM" textAlignment="CENTER" textFill="#63665b">
+                     <font>
+                        <Font name="Orbitron Medium" size="40.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="pmLabel" alignment="CENTER" layoutX="373.0" layoutY="51.0" prefHeight="51.0" prefWidth="80.0" text="PM" textAlignment="CENTER" textFill="#dc6a02">
+                     <font>
+                        <Font name="Orbitron Medium" size="40.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="alarm1_On_Button" layoutX="455.0" layoutY="14.0" mnemonicParsing="false" onAction="#toggleAlarm1ToGoOnOff" prefHeight="39.0" prefWidth="48.0" style="-fx-background-color: #45463f;" text="1" textFill="#63665b">
+                     <font>
+                        <Font name="Orbitron Black" size="13.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="alarm2_On_Button" layoutX="455.0" layoutY="57.0" mnemonicParsing="false" onAction="#toggleAlarm2ToGoOnOff" prefHeight="39.0" prefWidth="48.0" style="-fx-background-color: #45463f;" text="2" textFill="#63665b">
+                     <font>
+                        <Font name="Orbitron Black" size="13.0" />
+                     </font>
+                  </Button>
+                  <Label fx:id="hourLabel" alignment="CENTER" layoutX="9.0" layoutY="-6.0" prefHeight="122.0" prefWidth="175.0" text="00" textFill="#dc6a02">
+                     <font>
+                        <Font name="Orbitron Medium" size="100.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="minLabel" alignment="CENTER" layoutX="197.0" layoutY="-6.0" prefHeight="122.0" prefWidth="175.0" text="00" textFill="#dc6a02">
+                     <font>
+                        <Font name="Orbitron Medium" size="100.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="colonLabel" alignment="CENTER" layoutX="12.0" layoutY="-6.0" prefHeight="122.0" prefWidth="357.0" text=":" textFill="#dc6a02">
+                     <font>
+                        <Font name="Orbitron Medium" size="100.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+            <Pane layoutX="30.0" layoutY="209.0" prefHeight="96.0" prefWidth="509.0" style="-fx-background-color: #afb8b5; -fx-background-radius: 4px;">
+               <children>
+                  <RadioButton fx:id="amRadioButton" layoutX="18.0" layoutY="12.0" mnemonicParsing="false" onAction="#toggleAMOnOff" prefHeight="18.0" prefWidth="14.0" selected="true" />
+                  <RadioButton fx:id="fmRadioButton" layoutX="17.0" layoutY="52.0" mnemonicParsing="false" onAction="#toggleFMOnOff" prefHeight="18.0" prefWidth="14.0" selected="true" />
+                  <Label layoutX="15.0" layoutY="31.0" text="AM" textFill="#63665b">
+                     <font>
+                        <Font name="Orbitron Medium" size="13.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="14.0" layoutY="71.0" text="FM" textFill="#63665b">
+                     <font>
+                        <Font name="Orbitron Medium" size="13.0" />
+                     </font>
+                  </Label>
+                  <Slider fx:id="amSlider" layoutX="51.0" layoutY="54.0" majorTickUnit="4.0" max="108.0" min="88.0" minorTickCount="10" prefHeight="38.0" prefWidth="447.0" showTickLabels="true" showTickMarks="true" />
+                  <Slider fx:id="fmSlider" layoutX="51.0" layoutY="14.0" majorTickUnit="30.0" max="160.0" min="54.0" minorTickCount="10" prefHeight="38.0" prefWidth="448.0" showTickLabels="true" showTickMarks="true" />
+               </children>
+            </Pane>
+            <Button fx:id="alarmOffButton" alignment="BOTTOM_CENTER" layoutX="549.0" layoutY="31.0" mnemonicParsing="false" onAction="#turnAlarmOff" prefHeight="50.0" prefWidth="174.0" style="-fx-effect: null; -fx-background-color: fe8f2d; -fx-background-radius: 4px;" text="ALARM OFF" textFill="#63665b">
+               <font>
+                  <Font name="Orbitron Regular" size="15.0" />
+               </font>
+            </Button>
+            <Pane layoutX="731.0" layoutY="31.0" prefHeight="275.0" prefWidth="41.0" style="-fx-background-color: #afb8b5; -fx-background-radius: 4px;">
+               <children>
+                  <Slider fx:id="volumeSlider" layoutX="13.0" layoutY="11.0" orientation="VERTICAL" prefHeight="256.0" prefWidth="15.0" />
+               </children>
+            </Pane>
+            <Button fx:id="alarm1Button" alignment="BOTTOM_CENTER" layoutX="549.0" layoutY="91.0" mnemonicParsing="false" onAction="#selectAlarm1" prefHeight="50.0" prefWidth="83.0" style="-fx-effect: null; -fx-background-color: #fe8f2d; -fx-background-radius: 4px;" text="ALARM&#10;1" textAlignment="CENTER" textFill="#63665b" textOverrun="CLIP">
+               <font>
+                  <Font name="Orbitron Regular" size="11.0" />
+               </font>
+            </Button>
+            <Button fx:id="alarm2Button" alignment="BOTTOM_CENTER" layoutX="640.0" layoutY="91.0" mnemonicParsing="false" onAction="#selectAlarm2" prefHeight="50.0" prefWidth="83.0" style="-fx-effect: null; -fx-background-color: #fe8f2d; -fx-background-radius: 4px;" text="ALARM&#10;2" textAlignment="CENTER" textFill="#63665b" textOverrun="CLIP">
+               <font>
+                  <Font name="Orbitron Regular" size="11.0" />
+               </font>
+            </Button>
+            <Button fx:id="setTimeButton" alignment="BOTTOM_CENTER" layoutX="640.0" layoutY="150.0" mnemonicParsing="false" onAction="#setTime" prefHeight="50.0" prefWidth="83.0" style="-fx-effect: null; -fx-background-color: #fe8f2d; -fx-background-radius: 4px;" text="SET TIME" textAlignment="CENTER" textFill="#63665b" textOverrun="CLIP">
+               <font>
+                  <Font name="Orbitron Regular" size="11.0" />
+               </font>
+            </Button>
+            <Button fx:id="setAlarmTimeButton" alignment="BOTTOM_CENTER" layoutX="640.0" layoutY="150.0" mnemonicParsing="false" onAction="#setAlarmTime" prefHeight="50.0" prefWidth="83.0" style="-fx-effect: null; -fx-background-color: #dc6a02; -fx-background-radius: 4px;" text="SET&#10;ALARM&#10;TIME" textAlignment="CENTER" textFill="#63665b" textOverrun="CLIP">
+               <font>
+                  <Font name="Orbitron Regular" size="11.0" />
+               </font>
+            </Button>
+            <Button fx:id="minuteButton" alignment="BOTTOM_CENTER" layoutX="595.0" layoutY="150.0" mnemonicParsing="false" onAction="#incrementMinute" prefHeight="50.0" prefWidth="37.0" style="-fx-effect: null; -fx-background-color: #fe8f2d; -fx-background-radius: 4px;" text="MIN" textAlignment="CENTER" textFill="#63665b" textOverrun="CLIP">
+               <font>
+                  <Font name="Orbitron Regular" size="10.0" />
+               </font>
+            </Button>
+            <Button fx:id="hourButton" alignment="BOTTOM_CENTER" layoutX="549.0" layoutY="150.0" mnemonicParsing="false" onAction="#incrementHour" prefHeight="50.0" prefWidth="37.0" style="-fx-effect: null; -fx-background-color: #fe8f2d; -fx-background-radius: 4px;" text="HR" textAlignment="CENTER" textFill="#63665b" textOverrun="CLIP">
+               <font>
+                  <Font name="Orbitron Regular" size="10.0" />
+               </font>
+            </Button>
+            <Button fx:id="militaryButton" alignment="BOTTOM_CENTER" layoutX="549.0" layoutY="209.0" mnemonicParsing="false" onAction="#turnMilitaryOn" prefHeight="22.0" prefWidth="83.0" style="-fx-effect: null; -fx-background-color: #afb8b5; -fx-background-radius: 4px;" text="MILITARY" textAlignment="CENTER" textFill="#63665b" textOverrun="CLIP">
+               <font>
+                  <Font name="Orbitron Regular" size="10.0" />
+               </font>
+            </Button>
+            <Button fx:id="standardButton" alignment="BOTTOM_CENTER" layoutX="640.0" layoutY="209.0" mnemonicParsing="false" onAction="#turnStandardOn" prefHeight="22.0" prefWidth="83.0" style="-fx-effect: null; -fx-background-color: #afb8b5; -fx-background-radius: 4px;" text="STANDARD" textAlignment="CENTER" textFill="#63665b" textOverrun="CLIP">
+               <font>
+                  <Font name="Orbitron Regular" size="10.0" />
+               </font>
+            </Button>
+            <Button fx:id="radioOnOffButton" alignment="BOTTOM_CENTER" layoutX="549.0" layoutY="240.0" mnemonicParsing="false" onAction="#turnRadioOnOff" prefHeight="65.0" prefWidth="175.0" style="-fx-effect: null; -fx-background-color: #dc6a02; -fx-background-radius: 4px;" text="RADIO ON / OFF" textFill="#63665b">
+               <font>
+                  <Font name="Orbitron Regular" size="15.0" />
+               </font>
+            </Button>
+         </children>
+      </Pane>
+   </children>
+    <stylesheets>
+        <URL value="@/com/csci360/alarmclock/stylesheets/alarmClock.css" />
+    </stylesheets>
+</StackPane>
