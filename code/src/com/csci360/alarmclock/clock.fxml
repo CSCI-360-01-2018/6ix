@@ -80,7 +80,7 @@
                      </font>
                   </Label>
                   <Slider fx:id="amSlider" layoutX="51.0" layoutY="54.0" majorTickUnit="4.0" max="108.0" min="88.0" minorTickCount="10" prefHeight="38.0" prefWidth="447.0" showTickLabels="true" showTickMarks="true" />
-                  <Slider fx:id="fmSlider" layoutX="51.0" layoutY="14.0" majorTickUnit="30.0" max="160.0" min="54.0" minorTickCount="10" prefHeight="38.0" prefWidth="448.0" showTickLabels="true" showTickMarks="true" />
+                  <Slider fx:id="fmSlider" layoutX="51.0" layoutY="14.0" majorTickUnit="26.0" max="160.0" min="54.0" minorTickCount="10" prefHeight="38.0" prefWidth="448.0" showTickLabels="true" showTickMarks="true" />
                </children>
             </Pane>
             <Button fx:id="alarmOffButton" alignment="BOTTOM_CENTER" layoutX="549.0" layoutY="31.0" mnemonicParsing="false" onAction="#turnAlarmOff" prefHeight="50.0" prefWidth="174.0" style="-fx-effect: null; -fx-background-color: fe8f2d; -fx-background-radius: 4px;" text="ALARM OFF" textFill="#63665b">
