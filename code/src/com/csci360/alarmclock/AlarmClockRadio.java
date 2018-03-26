@@ -5,6 +5,7 @@
  */
 package com.csci360.alarmclock;
 
+import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -70,15 +71,15 @@ public class AlarmClockRadio {
 	
 	
 	
-	public void turnRadioOnOrOff(){
+	public void turnRadioOnOrOff() throws IOException{
 		radio.toggleRadioOnOff();
 	}
 	
-	public void setFrequency(String mode, int frequency){
+	public void setFrequency(String mode, double frequency){
 		radio.setFrequency(mode, frequency);
 	}
 	
-	public void setVolume(int volume){
+	public void setVolume(double volume){
 		radio.setVolume(volume);
 	}
 	

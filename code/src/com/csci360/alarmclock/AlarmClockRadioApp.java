@@ -5,7 +5,10 @@
  */
 package com.csci360.alarmclock;
 
+import java.io.File;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -14,6 +17,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
@@ -28,9 +33,16 @@ public class AlarmClockRadioApp extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/com/csci360/alarmclock/clock.fxml"));
-
-//        InputStream fafont = AlarmClockRadioApp.class.getResourceAsStream("/com/csci360/alarmclock/fonts/fontawesome-webfont.ttf");
-//        fontAwesome = Font.loadFont(fafont, 14);
+        
+//        Media media = new Media(getClass().getResource("/com/csci360/alarmclock/soundsAM/you-look-so-handsome.wav").toString());
+////    String ssound = "one.wav";
+////    Media sound = new Media(ssound);
+//    MediaPlayer mediaPlayer = new MediaPlayer(media);
+//    mediaPlayer.play();
+        
+        
+        
+    
 
         stage.setTitle("Alarm Clock Radio");
         Scene scene = new Scene(root);

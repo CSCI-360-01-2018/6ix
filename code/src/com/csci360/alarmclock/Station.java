@@ -14,8 +14,12 @@ public class Station {
     private SourceDataLine dataLine;
     private AudioFormat format;
     private AudioInputStream inputStream;
+    public String path;
+    public String name;
 
     public Station(File audioFile){
+        path = audioFile.getPath();
+        name = audioFile.getName();
         try {
             this.inputStream = AudioSystem.getAudioInputStream(audioFile);
             this.format = inputStream.getFormat();
@@ -29,6 +33,10 @@ public class Station {
         } catch (LineUnavailableException e) {
             e.printStackTrace();
         }
+    }
+    
+    public String getFilePath(){
+        return this.path;
     }
 
     public void play() throws IOException {
@@ -49,8 +57,8 @@ public class Station {
     public void stop() throws IOException {
         this.dataLine.drain();
         this.dataLine.stop();
-        this.dataLine.close();
-        this.inputStream.close();
+//        this.dataLine.close();
+//        this.inputStream.close();
     }
 
 }

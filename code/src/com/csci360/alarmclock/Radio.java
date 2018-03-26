@@ -12,27 +12,48 @@ import java.util.List;
 
 
 public class Radio {
-	public int amFrequency = 0; // 540-1600 kHZ for 106 possible bands
-	public int fmFrequency = 0; // 88.1-108.1 MHz for 100 possible bands
+	public double amFrequency = 0; // 540-1600 kHZ for 106 possible bands
+	public double fmFrequency = 0; // 88.1-108.1 MHz for 100 possible bands
 	public String currentMode = "AM";	
-	public int volume = 15; // range 0-100
+	public double volume = 15; // range 0-100
 	public boolean radioOn = false;
         List<Station> amStations = new ArrayList<Station>();
         List<Station> fmStations = new ArrayList<Station>();
+        
+        public static final int numRadioStations = 5;
+        public int fmMin = 88;
+        public int fmMax = 108;
+        public int amMin = 54;
+        public int amMax = 160;
+        // (int) (freq - min) / ((max-min) / numRadioStations)
         
         public Radio(){
             generateStations("am");
             generateStations("fm");
         }
         
+        public int convertToPlayableStation(){
+            
+            
+            int stationNum = 0;
+            if (currentMode.equalsIgnoreCase("am")){
+                System.out.println("am frequency: " + amFrequency);
+                stationNum = (int) ((amFrequency - amMin) / ((amMax - amMin) / (numRadioStations - 1)));
+            } else {
+                System.out.println("fm frequency: " + fmFrequency);
+                stationNum = (int) ((fmFrequency - fmMin) / ((fmMax - fmMin) / (numRadioStations - 1)));
+            }
+            return stationNum;
+        }
+        
         public List<Station> getStations(String amFm){
-            return amFm.equals("am") ? amStations : fmStations;
+            return amFm.equalsIgnoreCase("am") ? amStations : fmStations;
         }
         
         public void generateStations(String amFm){
             String filePath = System.getProperty("user.dir");
             
-            if (amFm.equals("am")){
+            if (amFm.equalsIgnoreCase("am")){
                 filePath += "/src/com/csci360/alarmclock/soundsAM";
                 System.out.println(filePath);
                 File music = new File(filePath);
@@ -41,31 +62,39 @@ public class Radio {
 
                 for (File song : songs) {
                     System.out.println(song.getPath());
-                    amStations.add(new Station(song));
+                    if (!song.toString().contains(".DS_Store")){
+                        amStations.add(new Station(song));
+                    }
                 }
             } else {
                 filePath += "/src/com/csci360/alarmclock/soundsFM";
                 File music = new File(filePath);
                 File[] songs = music.listFiles();
                 for (File song : songs) {
-                    fmStations.add(new Station(song));
+                    System.out.println(song.getPath());
+                    if (!song.toString().contains(".DS_Store")){
+                        fmStations.add(new Station(song));
+                    }
+
                 }
             }
         }
 	
 	public void setAmFmMode(String mode){
-		currentMode = mode;
+            currentMode = mode;
 	}
 	
-	public void setVolume(int volume){
-		this.volume = volume;
+	public void setVolume(double volume){
+            this.volume = volume;
 	}
 	
-	public void setFrequency(String mode, int frequency){
-            if (mode.equals("AM")){
+	public void setFrequency(String mode, double frequency){
+            if (mode.equalsIgnoreCase("AM")){
                     amFrequency = frequency;
+                    System.out.println("am frequency = " + this.amFrequency);
             } else {
                     fmFrequency = frequency;
+                    System.out.println("fm frequency = " + this.fmFrequency);
             }
 	}
 	
@@ -73,24 +102,42 @@ public class Radio {
 		return currentMode;
 	}
 	
-	public int getCurrentFrequency(){
-		return (currentMode == "AM") ? amFrequency : fmFrequency;
+	public double getCurrentFrequency(){
+		return (currentMode.equalsIgnoreCase("AM")) ? amFrequency : fmFrequency;
 	}
 
-	public int getVolume(){
+	public double getVolume(){
 		return volume;
 	}
 	
-	public void toggleRadioOnOff(){
-		radioOn = !radioOn;
+	public void toggleRadioOnOff() throws IOException{
+            radioOn = !radioOn;
+            if (radioOn){
+                play();
+            } else {
+                System.out.println("Radio Off. Stopping radio stations for " + currentMode);
+                for (Station stat : this.getStations(currentMode)){
+                    stat.stop();
+                }
+            }
 	}
 	
-	public void play(){
+	public void play() throws IOException {
             if (radioOn){
-                    System.out.println("radio is playing");
-                    // get frequency? get mode? play frequency and mode?
+                System.out.println("radio is playing");
+                // get frequency? get mode? play frequency and mode?
+//                System.out.println("length of am stations: " + amStations.size());
+//                System.out.println("length of fm stations: " + fmStations.size());
+//                int stationIndex = convertToPlayableStation();
+//                System.out.println("station index: " + Integer.toString(stationIndex));
+////                for (Station stat : this.getStations(currentMode)){
+////                    stat.stop();
+////                }
+//                Station playStation = this.getStations(currentMode).get(stationIndex);
+//                playStation.play();
+                
             } else {
-                    System.out.println("Radio is not on.");
+                System.out.println("Radio is not on.");
             }
 	}
 	

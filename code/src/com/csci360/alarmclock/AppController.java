@@ -6,8 +6,13 @@
 package com.csci360.alarmclock;
 
 import java.awt.Paint;
+import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -20,15 +25,20 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
+import javafx.util.Duration;
 
 /**
  *
@@ -63,9 +73,113 @@ public class AppController implements Initializable {
     public int min;
     public String amPm;
     
+    public boolean radioOn = false;
+    public boolean amModeOn = true;
+    public RadioButton amRadioButton;
+    public RadioButton fmRadioButton;
+    public Slider amSlider;
+    public Slider fmSlider;
+    public double amFrequency;
+    public double fmFrequency;
+    public MediaPlayer player;
+    public List<Media> amMediaList = new ArrayList<Media>();
+    public List<Media> fmMediaList = new ArrayList<Media>();
+    public MediaPlayer amMediaPlayer;
+    public MediaPlayer fmMediaPlayer;
+    
+    public void createMediaLists(){
+        for (Station s : arc.getRadio().getStations("am")){
+            Media media = new Media(getClass().getResource("/com/csci360/alarmclock/soundsAM/" + s.name).toString());
+            amMediaList.add(media);
+        }
+        for (Station s : arc.getRadio().getStations("fm")){
+            Media media = new Media(getClass().getResource("/com/csci360/alarmclock/soundsFM/" + s.name).toString());
+            fmMediaList.add(media);
+        }
+    }
+    
+    public void setSlidersToMedia(){
+
+                amSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
+                    amFrequency = newValue.doubleValue();
+                    System.out.println(amFrequency);
+                    arc.setFrequency("am", amFrequency);
+                    int index = arc.getRadio().convertToPlayableStation();
+                    
+                    if (radioOn){
+                        if (amModeOn){
+                            amMediaPlayer = new MediaPlayer(amMediaList.get(index));
+                            amMediaPlayer.play();
+                        }
+                    }
+                });
+
+                fmSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
+                    fmFrequency = newValue.doubleValue();
+                    System.out.println(fmFrequency);
+                    arc.setFrequency("fm", fmFrequency);
+                    int index = arc.getRadio().convertToPlayableStation();
+                    
+                    if (radioOn){
+                        if (!amModeOn){
+                            fmMediaPlayer = new MediaPlayer(fmMediaList.get(index));
+                            fmMediaPlayer.play();
+                        }
+                    }
+                });
+
+    }
+    
     @FXML
-    public void turnRadioOnOff(ActionEvent event) {
-        arc.turnRadioOnOrOff();
+    public void turnRadioOnOff(ActionEvent event) throws IOException{
+        if (!radioOn){
+            radioOn = true;
+            System.out.println("turning radio on");
+            arc.turnRadioOnOrOff();
+            if (amModeOn){
+                amFrequency = amSlider.getValue();
+                arc.setFrequency("am", amFrequency);
+                System.out.println(amFrequency);
+//                fmMediaPlayer.dispose();
+//                amMediaPlayer.dispose();
+                int index = arc.getRadio().convertToPlayableStation();
+                amMediaPlayer = new MediaPlayer(amMediaList.get(index));
+                amMediaPlayer.play();                
+            } else {
+                fmFrequency = fmSlider.getValue();
+                arc.setFrequency("fm", fmFrequency);
+                System.out.println(fmFrequency);
+//                amMediaPlayer.dispose();
+//                fmMediaPlayer.dispose();
+                int index = arc.getRadio().convertToPlayableStation();
+                fmMediaPlayer = new MediaPlayer(fmMediaList.get(index));
+                fmMediaPlayer.play();
+            }
+        } else {
+            radioOn = false;
+//            amMediaPlayer.dispose();
+//            fmMediaPlayer.dispose();
+            arc.turnRadioOnOrOff();
+        }
+    }
+    
+    
+    @FXML
+    public void toggleFMOnOff(ActionEvent event) {
+        System.out.println("radio mode set to FM");
+        amModeOn = false;
+        amRadioButton.setSelected(false);
+        arc.setAmFmMode("fm");
+        fmRadioButton.setSelected(true);
+    }
+    
+    @FXML
+    public void toggleAMOnOff(ActionEvent event) {
+        System.out.println("radio mode set to AM");
+        amModeOn = true;
+        amRadioButton.setSelected(true);
+        arc.setAmFmMode("am");
+        fmRadioButton.setSelected(false);
     }
     
     @FXML
@@ -136,8 +250,12 @@ public class AppController implements Initializable {
                 System.out.println(hour + ":" + min);
                 if (flashOn){
                     colonLabel.setVisible(true);
+                    hourLabel.setVisible(true);
+                    minLabel.setVisible(true);
                 } else {
                     colonLabel.setVisible(false);
+                    hourLabel.setVisible(false);
+                    minLabel.setVisible(false);
                 }
                 flashOn = !flashOn;
                 
@@ -351,16 +469,6 @@ public class AppController implements Initializable {
     }
     
     @FXML
-    public void toggleFMOnOff(ActionEvent event) {
- 
-    }
-    
-    @FXML
-    public void toggleAMOnOff(ActionEvent event) {
-
-    }
-    
-    @FXML
     public void toggleAlarm1ToGoOnOff(ActionEvent event) {
         arc.getAlarm(1).alarmIsSet = !arc.getAlarm(1).alarmIsSet;
         if (arc.getAlarm(1).alarmIsSet){
@@ -431,7 +539,7 @@ public class AppController implements Initializable {
                 if (!arc.getClock().isMilitary){
                     amPm = time.substring(6);
                     
-                    if (amPm.equals("AM")){
+                    if (amPm.equalsIgnoreCase("AM")){
                         amLabel.setStyle("-fx-text-fill: #dc6a02;");
                         pmLabel.setStyle("-fx-text-fill: #63665b;");
                     } else {
@@ -451,7 +559,11 @@ public class AppController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
         arc = new AlarmClockRadio();
+        
+        createMediaLists();
+        setSlidersToMedia();
         
         InputStream fafont = AppController.class.getResourceAsStream("/com/csci360/alarmclock/fonts/fontawesome-webfont.ttf");
         fontAwesome = Font.loadFont(fafont, 34);
@@ -468,6 +580,11 @@ public class AppController implements Initializable {
         alarm2_On_Button.setText("\uf017");
         alarm2_On_Button.setFont(fontAwesome);
         alarm2_On_Button.setPadding(new Insets(0,0,0,0));
+        
+        amFrequency = amSlider.getValue();
+        fmFrequency = fmSlider.getValue();
+        arc.setFrequency("am", amFrequency);
+        arc.setFrequency("fm", fmFrequency);
    
         displayTime();
     }    
