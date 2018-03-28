@@ -11,12 +11,12 @@
 <?import com.csci360.alarmclock.AppController?>
 <?import java.net.URL?>
 
-<StackPane fx:controller="com.csci360.alarmclock.AppController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="340.0" prefWidth="802.0" style="-fx-background-color: dce2de;" xmlns="http://javafx.com/javafx/9.0.4" xmlns:fx="http://javafx.com/fxml/1">
+<StackPane fx:controller="com.csci360.alarmclock.AppController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="340.0" prefWidth="802.0" style="-fx-background-color: #dce2de;" xmlns="http://javafx.com/javafx/9.0.4" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Rectangle arcHeight="10.0" arcWidth="10.0" fill="TRANSPARENT" height="302.0" stroke="#afb8b5" strokeType="INSIDE" strokeWidth="3.0" width="770.0" />
       <Pane prefHeight="368.0" prefWidth="790.0">
          <children>
-            <Button fx:id="snoozeButton" alignment="BOTTOM_CENTER" layoutX="31.0" layoutY="31.0" mnemonicParsing="false" onAction="#snooze" prefHeight="50.0" prefWidth="509.0" style="-fx-effect: null; -fx-background-color: fe8f2d; -fx-background-radius: 4px;" text="SNOOZE" textFill="#63665b">
+            <Button fx:id="snoozeButton" alignment="BOTTOM_CENTER" layoutX="31.0" layoutY="31.0" mnemonicParsing="false" onAction="#snooze" prefHeight="50.0" prefWidth="509.0" style="-fx-effect: null; -fx-background-color: #fe8f2d; -fx-background-radius: 4px;" text="SNOOZE" textFill="#63665b">
                <font>
                   <Font name="Orbitron Regular" size="15.0" />
                </font>
@@ -67,20 +67,20 @@
             </Pane>
             <Pane layoutX="30.0" layoutY="209.0" prefHeight="96.0" prefWidth="509.0" style="-fx-background-color: #afb8b5; -fx-background-radius: 4px;">
                <children>
-                  <RadioButton fx:id="amRadioButton" layoutX="18.0" layoutY="12.0" mnemonicParsing="false" onAction="#toggleAMOnOff" prefHeight="18.0" prefWidth="14.0" selected="true" />
-                  <RadioButton fx:id="fmRadioButton" layoutX="17.0" layoutY="52.0" mnemonicParsing="false" onAction="#toggleFMOnOff" prefHeight="18.0" prefWidth="14.0" selected="false" />
-                  <Label layoutX="15.0" layoutY="31.0" text="AM" textFill="#63665b">
+                  <RadioButton fx:id="amRadioButton" layoutX="14.0" layoutY="8.0" mnemonicParsing="false" onAction="#toggleAMOnOff" prefHeight="18.0" prefWidth="14.0" selected="true" />
+                  <RadioButton fx:id="fmRadioButton" layoutX="14.0" layoutY="52.0" mnemonicParsing="false" onAction="#toggleFMOnOff" prefHeight="18.0" prefWidth="14.0" selected="false" />
+                  <Label layoutX="16.0" layoutY="34.0" text="AM" textFill="#63665b">
                      <font>
-                        <Font name="Orbitron Medium" size="13.0" />
+                        <Font name="Orbitron Medium" size="11.0" />
                      </font>
                   </Label>
-                  <Label layoutX="14.0" layoutY="71.0" text="FM" textFill="#63665b">
+                  <Label layoutX="16.0" layoutY="78.0" text="FM" textFill="#63665b">
                      <font>
-                        <Font name="Orbitron Medium" size="13.0" />
+                        <Font name="Orbitron Medium" size="11.0" />
                      </font>
                   </Label>
-                  <Slider fx:id="amSlider" layoutX="51.0" layoutY="14.0" majorTickUnit="26.0" max="160.0" min="54.0" minorTickCount="0" prefHeight="38.0" prefWidth="448.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
-                  <Slider fx:id="fmSlider" layoutX="51.0" layoutY="54.0" majorTickUnit="5.0" max="108.0" min="88.0" minorTickCount="0" prefHeight="38.0" prefWidth="447.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
+                  <Slider fx:id="amSlider" layoutX="52.0" layoutY="4.0" majorTickUnit="26.5" max="160.0" min="54.0" minorTickCount="0" prefHeight="38.0" prefWidth="446.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
+                  <Slider fx:id="fmSlider" layoutX="52.0" layoutY="48.0" value="93.0" majorTickUnit="5.0" max="108.0" min="88.0" minorTickCount="0" prefHeight="38.0" prefWidth="446.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
                </children>
             </Pane>
             <Button fx:id="alarmOffButton" alignment="BOTTOM_CENTER" layoutX="549.0" layoutY="31.0" mnemonicParsing="false" onAction="#turnAlarmOff" prefHeight="50.0" prefWidth="174.0" style="-fx-effect: null; -fx-background-color: fe8f2d; -fx-background-radius: 4px;" text="ALARM OFF" textFill="#63665b">
@@ -90,7 +90,12 @@
             </Button>
             <Pane layoutX="731.0" layoutY="31.0" prefHeight="275.0" prefWidth="41.0" style="-fx-background-color: #afb8b5; -fx-background-radius: 4px;">
                <children>
-                  <Slider fx:id="volumeSlider" layoutX="13.0" layoutY="11.0" orientation="VERTICAL" prefHeight="256.0" prefWidth="15.0" />
+                  <Slider fx:id="volumeSlider" layoutX="3.0" layoutY="2.0" orientation="VERTICAL" prefHeight="250.0" prefWidth="15.0" />
+                  <Label layoutX="6.0" layoutY="254.0" text="VOL" textFill="#63665b">
+                     <font>
+                        <Font name="Orbitron Medium" size="11.0" />
+                     </font>
+                  </Label>
                </children>
             </Pane>
             <Button fx:id="alarm1Button" alignment="BOTTOM_CENTER" layoutX="549.0" layoutY="91.0" mnemonicParsing="false" onAction="#selectAlarm1" prefHeight="50.0" prefWidth="83.0" style="-fx-effect: null; -fx-background-color: #fe8f2d; -fx-background-radius: 4px;" text="ALARM&#10;1" textAlignment="CENTER" textFill="#63665b" textOverrun="CLIP">
@@ -133,7 +138,7 @@
                   <Font name="Orbitron Regular" size="10.0" />
                </font>
             </Button>
-            <Button fx:id="radioOnOffButton" alignment="BOTTOM_CENTER" layoutX="549.0" layoutY="240.0" mnemonicParsing="false" onAction="#turnRadioOnOff" prefHeight="65.0" prefWidth="175.0" style="-fx-effect: null; -fx-background-color: #dc6a02; -fx-background-radius: 4px;" text="RADIO ON / OFF" textFill="#63665b">
+            <Button fx:id="radioOnOffButton" alignment="BOTTOM_CENTER" layoutX="549.0" layoutY="240.0" mnemonicParsing="false" onAction="#turnRadioOnOff" prefHeight="65.0" prefWidth="175.0" style="-fx-effect: null; -fx-background-color: #fe8f2d; -fx-background-radius: 4px;" text="RADIO ON / OFF" textFill="#63665b">
                <font>
                   <Font name="Orbitron Regular" size="15.0" />
                </font>

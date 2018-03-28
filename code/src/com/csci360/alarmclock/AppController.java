@@ -86,6 +86,7 @@ public class AppController implements Initializable {
     public List<Media> fmMediaList = new ArrayList<Media>();
     public MediaPlayer amMediaPlayer;
     public MediaPlayer fmMediaPlayer;
+    public Button radioOnOffButton;
     
     public void createMediaLists(){
         for (Station s : arc.getRadio().getStations("am")){
@@ -134,12 +135,13 @@ public class AppController implements Initializable {
     public void turnRadioOnOff(ActionEvent event) throws IOException{
         if (!radioOn){
             radioOn = true;
+            radioOnOffButton.setStyle("-fx-effect: null; -fx-background-color: #fe8f2d; -fx-background-radius: 4px;");
             System.out.println("turning radio on");
             arc.turnRadioOnOrOff();
             if (amModeOn){
                 amFrequency = amSlider.getValue();
                 arc.setFrequency("am", amFrequency);
-                System.out.println(amFrequency);
+//                System.out.println(amFrequency);
 //                fmMediaPlayer.dispose();
 //                amMediaPlayer.dispose();
                 int index = arc.getRadio().convertToPlayableStation();
@@ -148,7 +150,7 @@ public class AppController implements Initializable {
             } else {
                 fmFrequency = fmSlider.getValue();
                 arc.setFrequency("fm", fmFrequency);
-                System.out.println(fmFrequency);
+//                System.out.println(fmFrequency);
 //                amMediaPlayer.dispose();
 //                fmMediaPlayer.dispose();
                 int index = arc.getRadio().convertToPlayableStation();
@@ -157,6 +159,8 @@ public class AppController implements Initializable {
             }
         } else {
             radioOn = false;
+            radioOnOffButton.setStyle("-fx-effect: null; -fx-background-color: #dc6a02; -fx-background-radius: 4px;");
+
 //            amMediaPlayer.dispose();
 //            fmMediaPlayer.dispose();
             arc.turnRadioOnOrOff();
@@ -166,7 +170,7 @@ public class AppController implements Initializable {
     
     @FXML
     public void toggleFMOnOff(ActionEvent event) {
-        System.out.println("radio mode set to FM");
+//        System.out.println("radio mode set to FM");
         amModeOn = false;
         amRadioButton.setSelected(false);
         arc.setAmFmMode("fm");
@@ -175,7 +179,7 @@ public class AppController implements Initializable {
     
     @FXML
     public void toggleAMOnOff(ActionEvent event) {
-        System.out.println("radio mode set to AM");
+//        System.out.println("radio mode set to AM");
         amModeOn = true;
         amRadioButton.setSelected(true);
         arc.setAmFmMode("am");
@@ -250,12 +254,8 @@ public class AppController implements Initializable {
                 System.out.println(hour + ":" + min);
                 if (flashOn){
                     colonLabel.setVisible(true);
-                    hourLabel.setVisible(true);
-                    minLabel.setVisible(true);
                 } else {
                     colonLabel.setVisible(false);
-                    hourLabel.setVisible(false);
-                    minLabel.setVisible(false);
                 }
                 flashOn = !flashOn;
                 

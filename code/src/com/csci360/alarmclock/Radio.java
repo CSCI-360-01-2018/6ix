@@ -124,7 +124,7 @@ public class Radio {
 	
 	public void play() throws IOException {
             if (radioOn){
-                System.out.println("radio is playing");
+//                System.out.println("radio is playing");
                 // get frequency? get mode? play frequency and mode?
 //                System.out.println("length of am stations: " + amStations.size());
 //                System.out.println("length of fm stations: " + fmStations.size());

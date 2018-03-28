@@ -7,9 +7,84 @@ and open the template in the editor.
     Created on : Mar 5, 2018, 9:51:10 PM
     Author     : MeganLandau
 */
+.slider:vertical .track {
+    -fx-background-color: #45463f;
+    -fx-control-inner-background: #45463f;
+    -fx-background-radius: 2px;
+    -fx-border-width: 0px;
+    -fx-shadow-highlight-color: TRANSPARENT;
+    -fx-padding: 0.1em;
+}
 
-/*@font-face {
-   font-family: 'FontAwesome';
-   src: url('fontawesome-webfont.ttf');
-}*/
 
+.slider .track {
+    -fx-background-color: #dce2de;
+    -fx-control-inner-background: #dce2de;
+    -fx-background-radius: 2px;
+    -fx-border-width: 0px;
+    -fx-shadow-highlight-color: TRANSPARENT;
+    -fx-padding: 1px;
+}
+
+.slider .axis {
+    -fx-tick-label-font-size: 11px;
+    -fx-tick-label-font-family: 'Orbitron';
+    -fx-tick-label-fill: #63665b;
+}
+
+.slider .axis .axis-tick-mark, .slider .axis .axis-minor-tick-mark {
+    -fx-fill: null;
+    -fx-stroke: transparent;
+    -fx-stroke-width: 50px;
+}
+
+@font-face {
+    font-family: Orbitron;
+    src: url("Orbitron-Regular.ttf");
+}
+
+.slider:vertical .thumb {
+    -fx-background-radius: 6px;
+    -fx-border-radius: 4px;
+    -fx-padding: 8px 15px;
+    -fx-border-width: 2px;
+    -fx-background-color: #45463f;
+    -fx-border-color: #afb8b5;
+    -fx-shadow-highlight-color: TRANSPARENT;
+    -fx-shadow-color: TRANSPARENT;
+    -fx-background-insets: 0;
+}
+
+.slider .thumb {
+    -fx-background-radius: 13px 13px 6px 6px;
+    -fx-border-radius: 11px 11px 4px 4px;
+    -fx-padding: 18px 9px;
+    -fx-border-width: 4px;
+    -fx-background-color: #dce2de;
+    -fx-border-color: #afb8b5;
+    -fx-shadow-highlight-color: TRANSPARENT;
+    -fx-shadow-color: TRANSPARENT;
+    -fx-effect: null;
+}
+
+.radio-button .radio {
+    -fx-border-width: 3px;
+    -fx-border-color: #dce2de;
+    -fx-background-color: #bdc6c3; 
+    -fx-border-radius: 15px;
+    -fx-padding: 4px;
+    -fx-shadow-highlight-color: TRANSPARENT;
+    -fx-shadow-color: TRANSPARENT;
+}
+
+.radio-button:selected .radio {
+    -fx-background-color: #fe8f2d;
+    -fx-background-image: null;
+    -fx-background-insets: 0;
+}
+
+.radio-button .dot {
+    -fx-background-color: TRANSPARENT;
+    -fx-shadow-highlight-color: TRANSPARENT;
+    -fx-shadow-color: TRANSPARENT;
+}
