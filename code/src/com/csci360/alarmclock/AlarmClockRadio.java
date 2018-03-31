@@ -80,7 +80,11 @@ public class AlarmClockRadio {
 	}
 	
 	public void setVolume(double volume){
-		radio.setVolume(volume);
+		radio.setVolume(volume / 100);
+	}
+        
+        public double getVolume(){
+            return radio.getVolume();
 	}
 	
 	public void setAmFmMode(String mode){

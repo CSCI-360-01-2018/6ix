@@ -15,7 +15,7 @@ public class Radio {
 	public double amFrequency = 0; // 540-1600 kHZ for 106 possible bands
 	public double fmFrequency = 0; // 88.1-108.1 MHz for 100 possible bands
 	public String currentMode = "AM";	
-	public double volume = 15; // range 0-100
+	public double volume = 0.5; // range 0-1 for media players
 	public boolean radioOn = false;
         List<Station> amStations = new ArrayList<Station>();
         List<Station> fmStations = new ArrayList<Station>();
@@ -34,13 +34,12 @@ public class Radio {
         
         public int convertToPlayableStation(){
             
-            
             int stationNum = 0;
             if (currentMode.equalsIgnoreCase("am")){
-                System.out.println("am frequency: " + amFrequency);
+//                System.out.println("am frequency: " + amFrequency);
                 stationNum = (int) ((amFrequency - amMin) / ((amMax - amMin) / (numRadioStations - 1)));
-            } else {
-                System.out.println("fm frequency: " + fmFrequency);
+            } else if (currentMode.equalsIgnoreCase("fm")){
+//                System.out.println("fm frequency: " + fmFrequency);
                 stationNum = (int) ((fmFrequency - fmMin) / ((fmMax - fmMin) / (numRadioStations - 1)));
             }
             return stationNum;
@@ -55,13 +54,13 @@ public class Radio {
             
             if (amFm.equalsIgnoreCase("am")){
                 filePath += "/src/com/csci360/alarmclock/soundsAM";
-                System.out.println(filePath);
+//                System.out.println(filePath);
                 File music = new File(filePath);
 
                 File[] songs = music.listFiles();
 
                 for (File song : songs) {
-                    System.out.println(song.getPath());
+//                    System.out.println(song.getPath());
                     if (!song.toString().contains(".DS_Store")){
                         amStations.add(new Station(song));
                     }
@@ -71,7 +70,7 @@ public class Radio {
                 File music = new File(filePath);
                 File[] songs = music.listFiles();
                 for (File song : songs) {
-                    System.out.println(song.getPath());
+//                    System.out.println(song.getPath());
                     if (!song.toString().contains(".DS_Store")){
                         fmStations.add(new Station(song));
                     }
@@ -91,10 +90,10 @@ public class Radio {
 	public void setFrequency(String mode, double frequency){
             if (mode.equalsIgnoreCase("AM")){
                     amFrequency = frequency;
-                    System.out.println("am frequency = " + this.amFrequency);
-            } else {
+//                    System.out.println("am frequency = " + this.amFrequency);
+            } else if (mode.equalsIgnoreCase("FM")){
                     fmFrequency = frequency;
-                    System.out.println("fm frequency = " + this.fmFrequency);
+//                    System.out.println("fm frequency = " + this.fmFrequency);
             }
 	}
 	
@@ -116,9 +115,9 @@ public class Radio {
                 play();
             } else {
                 System.out.println("Radio Off. Stopping radio stations for " + currentMode);
-                for (Station stat : this.getStations(currentMode)){
-                    stat.stop();
-                }
+//                for (Station stat : this.getStations(currentMode)){
+//                    stat.stop();
+//                }
             }
 	}
 	

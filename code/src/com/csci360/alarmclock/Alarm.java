@@ -38,7 +38,16 @@ public class Alarm {
 
 	public void toggleAlarmIsOn(boolean setting){
 		alarmIsOn = (setting) ? true : false;
+                if (!alarmIsOn){
+                    System.out.println("Alarm " + this.name + " turned off.");
+                } else {
+                    System.out.println("Alarm " + this.name + " turned on.");
+                }
 	}
+        
+        public boolean isSounding(){
+            return alarmIsOn;
+        }
 	
 	public void setAlarmHour( int hour ){
 		alarmHour = hour;
@@ -93,6 +102,7 @@ public class Alarm {
 
                     alarmIsOn = true;
                     snoozeOn = false;
+                    soundAlarm();
                     }
                 }, SNOOZETIME);
 

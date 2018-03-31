@@ -90,7 +90,7 @@
             </Button>
             <Pane layoutX="731.0" layoutY="31.0" prefHeight="275.0" prefWidth="41.0" style="-fx-background-color: #afb8b5; -fx-background-radius: 4px;">
                <children>
-                  <Slider fx:id="volumeSlider" layoutX="3.0" layoutY="2.0" orientation="VERTICAL" prefHeight="250.0" prefWidth="15.0" />
+                  <Slider fx:id="volumeSlider" layoutX="3.0" layoutY="2.0" orientation="VERTICAL" prefHeight="250.0" prefWidth="15.0" value="50" />
                   <Label layoutX="6.0" layoutY="254.0" text="VOL" textFill="#63665b">
                      <font>
                         <Font name="Orbitron Medium" size="11.0" />

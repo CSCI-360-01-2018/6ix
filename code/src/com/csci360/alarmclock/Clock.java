@@ -47,7 +47,7 @@ public class Clock {
 	            	if (hour == 24){
 	            		hour = 0;
 	            	}
-//	            	System.out.println(getFullTime());
+	            	System.out.println(getFullTime());
 //	            	checkForAlarm();
                         if (seconds == 0){ 
                             checkForAlarm();

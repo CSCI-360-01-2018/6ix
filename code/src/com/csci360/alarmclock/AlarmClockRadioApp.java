@@ -33,16 +33,6 @@ public class AlarmClockRadioApp extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/com/csci360/alarmclock/clock.fxml"));
-        
-//        Media media = new Media(getClass().getResource("/com/csci360/alarmclock/soundsAM/you-look-so-handsome.wav").toString());
-////    String ssound = "one.wav";
-////    Media sound = new Media(ssound);
-//    MediaPlayer mediaPlayer = new MediaPlayer(media);
-//    mediaPlayer.play();
-        
-        
-        
-    
 
         stage.setTitle("Alarm Clock Radio");
         Scene scene = new Scene(root);
