@@ -68,7 +68,7 @@ public class AppController implements Initializable {
 
     public Button alarm1_On_Button;
     public Button alarm2_On_Button;
-    
+
     public MediaPlayer alarmMediaPlayer;
     public Button setAlarmTimeButton;
     public Button setTimeButton;
@@ -108,7 +108,7 @@ public class AppController implements Initializable {
             Media media = new Media(getClass().getResource("/com/csci360/alarmclock/soundsFM/" + s.name).toString());
             fmMediaList.add(media);
         }
-        
+
     }
 
     public void setSlidersToMedia() {
@@ -117,14 +117,12 @@ public class AppController implements Initializable {
             if (amModeOn && !amSlider.isValueChanging()) {
                 amMediaPlayer.stop();
                 amFrequency = newValue.doubleValue();
-                System.out.println("AM mode on and AM freq = " + Double.toString(amFrequency));
                 arc.setFrequency("am", amFrequency);
                 int index = arc.getRadio().convertToPlayableStation();
 
                 if (radioOn) {
                     if (amModeOn) {
                         amMediaPlayer = new MediaPlayer(amMediaList.get(index));
-                        System.out.println("Setting AM media vol to " + arc.getVolume());
                         amMediaPlayer.setVolume(arc.getVolume());
                         amMediaPlayer.play();
                     }
@@ -136,14 +134,12 @@ public class AppController implements Initializable {
             if (!amModeOn && !fmSlider.isValueChanging()) {
                 fmMediaPlayer.stop();
                 fmFrequency = newValue.doubleValue();
-//                System.out.println("FM mode on and FM freq = " + Double.toString(fmFrequency));
                 arc.setFrequency("fm", fmFrequency);
                 int index = arc.getRadio().convertToPlayableStation();
 
                 if (radioOn) {
                     if (!amModeOn) {
                         fmMediaPlayer = new MediaPlayer(fmMediaList.get(index));
-//                        System.out.println("Setting FM media vol to " + arc.getVolume());
                         fmMediaPlayer.setVolume(arc.getVolume());
                         fmMediaPlayer.play();
                     }
@@ -158,7 +154,6 @@ public class AppController implements Initializable {
         if (!radioOn) {
             radioOn = true;
             radioOnOffButton.setStyle("-fx-effect: null; -fx-background-color: #dc6a02; -fx-background-radius: 4px;");
-            System.out.println("turning radio on");
             arc.turnRadioOnOrOff();
             if (amModeOn) {
                 amFrequency = amSlider.getValue();
@@ -184,23 +179,18 @@ public class AppController implements Initializable {
 
     @FXML
     public void toggleFMOnOff(ActionEvent event) {
-        if (radioOn){
-            System.out.println("radio mode set to FM");
+        if (radioOn) {
             amModeOn = false;
             amRadioButton.setSelected(false);
             arc.setAmFmMode("fm");
-
             fmFrequency = fmSlider.getValue();
             arc.setFrequency("fm", fmFrequency);
-
             fmRadioButton.setSelected(true);
-
             amMediaPlayer.stop();
             int index = arc.getRadio().convertToPlayableStation();
             fmMediaPlayer = new MediaPlayer(fmMediaList.get(index));
             fmMediaPlayer.play();
         } else {
-            System.out.println("radio mode set to FM");
             amModeOn = false;
             amRadioButton.setSelected(false);
             arc.setAmFmMode("fm");
@@ -210,23 +200,18 @@ public class AppController implements Initializable {
 
     @FXML
     public void toggleAMOnOff(ActionEvent event) {
-        if (radioOn){
-            System.out.println("radio mode set to AM");
+        if (radioOn) {
             amModeOn = true;
             amRadioButton.setSelected(true);
             arc.setAmFmMode("am");
-
             amFrequency = amSlider.getValue();
             arc.setFrequency("am", amFrequency);
-
             fmRadioButton.setSelected(false);
-
             fmMediaPlayer.stop();
             int index = arc.getRadio().convertToPlayableStation();
             amMediaPlayer = new MediaPlayer(amMediaList.get(index));
             amMediaPlayer.play();
         } else {
-            System.out.println("radio mode set to AM");
             amModeOn = true;
             amRadioButton.setSelected(true);
             arc.setAmFmMode("am");
@@ -255,7 +240,7 @@ public class AppController implements Initializable {
             this.hour = this.hour % 24;
 
             String hourFormatted;
-            if (!arc.getClock().isMilitary) {
+            if (!arc.isClockMilitary()) {
                 if (hour == 12 || hour == 0) {
                     hourFormatted = "12";
                 } else if (hour < 10 || (hour % 12) < 10) {
@@ -280,12 +265,10 @@ public class AppController implements Initializable {
         if (timeSettingOn) {
             this.min++;
             this.min = this.min % 60;
-
             String minFormatted = Integer.toString(min);
             if (min < 10) {
                 minFormatted = "0" + Integer.toString(min);
             }
-
             minLabel.setText(minFormatted);
         }
     }
@@ -299,7 +282,6 @@ public class AppController implements Initializable {
 
             @Override
             public void run() {
-                System.out.println(hour + ":" + min);
                 if (flashOn) {
                     colonLabel.setVisible(true);
                 } else {
@@ -325,8 +307,8 @@ public class AppController implements Initializable {
         if (!timeSettingOn) { //entering set time mode
             timeSettingOn = true;
 
-            hour = arc.getClock().getHour();
-            min = arc.getClock().getMinute();
+            hour = arc.getHour();
+            min = arc.getMinute();
 
             String minFormatted = Integer.toString(min);
             if (min < 10) {
@@ -334,7 +316,7 @@ public class AppController implements Initializable {
             }
 
             String hourFormatted;
-            if (!arc.getClock().isMilitary) {
+            if (!arc.isClockMilitary()) {
                 if (hour == 12 || hour == 0) {
                     hourFormatted = "12";
                 } else if (hour < 10 || (hour % 12) < 10) {
@@ -349,27 +331,19 @@ public class AppController implements Initializable {
                     hourFormatted = "0" + Integer.toString(hour);
                 }
             }
-
             hourLabel.setText(hourFormatted);
             minLabel.setText(minFormatted);
-
             timeLabel.setVisible(false);
-
             hourLabel.setVisible(true);
             minLabel.setVisible(true);
             colonLabel.setVisible(true);
-
         } else {
             timeSettingOn = false;
-
             arc.setTime(hour, min);
-
             timeLabel.setVisible(true);
-
             hourLabel.setVisible(false);
             minLabel.setVisible(false);
             colonLabel.setVisible(false);
-
             displayTime();
         }
     }
@@ -417,7 +391,6 @@ public class AppController implements Initializable {
 
             @Override
             public void run() {
-                System.out.println(hour + ":" + min);
                 if (flashOn) {
                     colonLabel.setVisible(true);
                 } else {
@@ -444,13 +417,13 @@ public class AppController implements Initializable {
             timeSettingOn = true;
 
             if (selectAlarm1) {
-                hour = arc.getAlarm(1).getAlarmHour();
-                min = arc.getAlarm(1).getAlarmMinute();
+                hour = arc.getAlarmHour(1);
+                min = arc.getAlarmMinute(1);
             }
 
             if (selectAlarm2) {
-                hour = arc.getAlarm(2).getAlarmHour();
-                min = arc.getAlarm(2).getAlarmMinute();
+                hour = arc.getAlarmHour(2);
+                min = arc.getAlarmMinute(2);
             }
 
             String minFormatted = Integer.toString(min);
@@ -459,7 +432,7 @@ public class AppController implements Initializable {
             }
 
             String hourFormatted;
-            if (!arc.getClock().isMilitary) {
+            if (!arc.isClockMilitary()) {
                 if (hour == 12 || hour == 0) {
                     hourFormatted = "12";
                 } else if (hour < 10 || (hour % 12) < 10) {
@@ -520,9 +493,6 @@ public class AppController implements Initializable {
     public void toggleAlarm1ToGoOnOff(ActionEvent event) {
         arc.getAlarm(1).alarmIsSet = !arc.getAlarm(1).alarmIsSet;
         if (arc.getAlarm(1).alarmIsSet) {
-            System.out.println("alarm 1 is set to go off at " + arc.getClock().getAlarmTime(1));
-            System.out.println("alarm 1 is on: " + arc.getAlarm(1).alarmIsOn);
-            System.out.println("alarm 1 is set to go off: " + arc.getAlarm(1).alarmIsSet);
             alarm1_On_Button.setStyle("-fx-text-fill: #dc6a02;-fx-background-color: #45463f;");
         } else {
             alarm1_On_Button.setStyle("-fx-text-fill: #63665b;-fx-background-color: #45463f;");
@@ -533,34 +503,14 @@ public class AppController implements Initializable {
     public void toggleAlarm2ToGoOnOff(ActionEvent event) {
         arc.getAlarm(2).alarmIsSet = !arc.getAlarm(2).alarmIsSet;
         if (arc.getAlarm(2).alarmIsSet) {
-            System.out.println("alarm 2 is set to go off at " + arc.getClock().getAlarmTime(2));
-            System.out.println("alarm 2 is on: " + arc.getAlarm(2).alarmIsOn);
-            System.out.println("alarm 2 is set to go off: " + arc.getAlarm(2).alarmIsSet);
             alarm2_On_Button.setStyle("-fx-text-fill: #dc6a02;-fx-background-color: #45463f;");
         } else {
             alarm2_On_Button.setStyle("-fx-text-fill: #63665b;-fx-background-color: #45463f;");
         }
     }
 
-//    public void changeColor(Button button){
-//        Background origColor = button.getBackground();
-//        
-//                Timer timeSettingTimer = new Timer();
-//        timeSettingTimer.schedule(new TimerTask() {
-//            
-//            @Override
-//            public void run() {
-//                button.setBackground(new Background(new BackgroundFill(Color.DARKGREEN, CornerRadii.EMPTY, Insets.EMPTY)));
-//
-//            }
-//        },0, 100);
-//        
-//        button.setBackground(origColor);
-//
-//    }
     @FXML
     public void snooze(ActionEvent event) {
-//        changeColor(snoozeButton);
         if (arc.getAlarm(1).alarmIsOn) {
             alarmMediaPlayer.stop();
             arc.getAlarm(1).snoozeAlarm();
@@ -596,7 +546,6 @@ public class AppController implements Initializable {
                 String hour = time.substring(0, 2);
                 String min = time.substring(3, 5);
 
-//                System.out.println(hour + ":" + min);
                 Platform.runLater(new Runnable() {
                     public void run() {
                         timeLabel.setText(hour + ":" + min);
@@ -604,7 +553,7 @@ public class AppController implements Initializable {
                 });
 
                 String amPm;
-                if (!arc.getClock().isMilitary) {
+                if (!arc.isClockMilitary()) {
                     amPm = time.substring(6);
 
                     if (amPm.equalsIgnoreCase("AM")) {
@@ -618,19 +567,14 @@ public class AppController implements Initializable {
 
                 if (AppController.this.timeSettingOn) {
                     t.cancel();
-                    System.out.println("Time setting on. Cancel timer.");
                 }
-                
-                if (arc.clock.getAlarm(1).isSounding()){
+
+                if (arc.clock.getAlarm(1).isSounding()) {
                     alarmMediaPlayer.play();
-                } else {
-                   // alarmMediaPlayer.stop();
                 }
-                
-                if (arc.clock.getAlarm(2).isSounding()){
+
+                if (arc.clock.getAlarm(2).isSounding()) {
                     alarmMediaPlayer.play();
-                } else {
-                    //alarmMediaPlayer.stop();
                 }
             }
         }, 0, 1000);
@@ -664,31 +608,27 @@ public class AppController implements Initializable {
         fmFrequency = fmSlider.getValue();
         arc.setFrequency("am", amFrequency);
         arc.setFrequency("fm", fmFrequency);
-        
+
         volumeSlider.setMin(0.0);
         volumeSlider.setMax(100.0);
-        
-        volumeSlider.valueProperty().addListener(new InvalidationListener(){
+
+        volumeSlider.valueProperty().addListener(new InvalidationListener() {
             @Override
-            public void invalidated(Observable observable){
-//                System.out.println("Volume = " + volumeSlider.getValue());
+            public void invalidated(Observable observable) {
                 arc.setVolume(volumeSlider.getValue());
-                if (radioOn){
-                    if (amModeOn){
-//                        System.out.println("Am media player = " + amMediaPlayer.getVolume()/100);
+                if (radioOn) {
+                    if (amModeOn) {
                         amMediaPlayer.setVolume(arc.getVolume());
                     } else {
-//                        System.out.println("fm media player = " + fmMediaPlayer.getVolume()/100);
                         fmMediaPlayer.setVolume(arc.getVolume());
                     }
                 }
             }
         });
-        
+
         Media alarmMedia = new Media(getClass().getResource("/com/csci360/alarmclock/alarmSound/longAlarmSound2.m4a").toString());
         alarmMediaPlayer = new MediaPlayer(alarmMedia);
 
         displayTime();
     }
-
 }
