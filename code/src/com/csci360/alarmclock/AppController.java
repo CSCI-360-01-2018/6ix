@@ -152,6 +152,11 @@ public class AppController implements Initializable {
             radioOn = false;
             radioOnOffButton.setStyle("-fx-effect: null; -fx-background-color: #fe8f2d; -fx-background-radius: 4px;");
             arc.turnRadioOnOrOff();
+            if (amModeOn) {
+                amMediaPlayer.pause();
+            } else {
+                fmMediaPlayer.pause();
+            }
         }
     }
 

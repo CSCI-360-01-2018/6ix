@@ -7,6 +7,11 @@ package com.csci360.alarmclock;
 
 import java.io.IOException;
 
+/**
+ * The AlarmClockRadio class interfaces with the GUI, providing all the public methods for the user to
+ * manipulate the system. This class contains the system Clock and Radio objects, which in turn contain 
+ * the Alarm, Radio, and Station objects, respectively. 
+ */
 public class AlarmClockRadio {
 
     Clock clock;
