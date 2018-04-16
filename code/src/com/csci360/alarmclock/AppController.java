@@ -1,16 +1,13 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * CSCI 360 Semester Project
+ * Team 6ix - Dual Alarm Clock Radio
+ * Professor: Dr. Bowring
  */
 package com.csci360.alarmclock;
 
-import java.awt.Paint;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -20,36 +17,17 @@ import javafx.application.Platform;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Slider;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import javafx.scene.text.TextAlignment;
-import javafx.util.Duration;
 
-/**
- *
- * @author MeganLandau
- */
 public class AppController implements Initializable {
 
     public AlarmClockRadio arc;
@@ -91,8 +69,8 @@ public class AppController implements Initializable {
     public double amFrequency;
     public double fmFrequency;
     public MediaPlayer player;
-    public List<Media> amMediaList = new ArrayList<Media>();
-    public List<Media> fmMediaList = new ArrayList<Media>();
+    public List<Media> amMediaList = new ArrayList<>();
+    public List<Media> fmMediaList = new ArrayList<>();
     public MediaPlayer amMediaPlayer;
     public MediaPlayer fmMediaPlayer;
     public Button radioOnOffButton;

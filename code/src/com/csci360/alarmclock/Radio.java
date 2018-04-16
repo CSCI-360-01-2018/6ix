@@ -1,7 +1,7 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * CSCI 360 Semester Project
+ * Team 6ix - Dual Alarm Clock Radio
+ * Professor: Dr. Bowring
  */
 package com.csci360.alarmclock;
 
@@ -10,28 +10,36 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The Radio class is responsible for playing AM and FM stations for the system. User can turn the 
+ * radio on, change the AM or FM modes, change the frequency to hear different stations play, and 
+ * adjust the volume of the system.
+ * 
+ * On initialization, the Radio creates stations for both AM and FM modes using the Station class.
+ * 
+ */
 public class Radio {
 
-    public double amFrequency = 0; // 540-1600 kHZ for 106 possible bands
-    public double fmFrequency = 0; // 88.1-108.1 MHz for 100 possible bands
-    public String currentMode = "AM";
-    public double volume = 0.5; // range 0-1 for media players
-    public boolean radioOn = false;
-    List<Station> amStations = new ArrayList<Station>();
-    List<Station> fmStations = new ArrayList<Station>();
+    protected double amFrequency = 0; // 540-1600 kHZ for 106 possible bands
+    protected double fmFrequency = 0; // 88.1-108.1 MHz for 100 possible bands
+    protected String currentMode = "AM";
+    protected double volume = 0.5; // range 0-1 for media players
+    protected boolean radioOn = false;
+    protected List<Station> amStations = new ArrayList<>();
+    protected List<Station> fmStations = new ArrayList<>();
 
-    public static final int numRadioStations = 5;
-    public int fmMin = 88;
-    public int fmMax = 108;
-    public int amMin = 54;
-    public int amMax = 160;
+    private static final int numRadioStations = 5;
+    private int fmMin = 88;
+    private int fmMax = 108;
+    private int amMin = 54;
+    private int amMax = 160;
 
     public Radio() {
         generateStations("am");
         generateStations("fm");
     }
 
-    public int convertToPlayableStation() {
+    protected int convertToPlayableStation() {
 
         int stationNum = 0;
         if (currentMode.equalsIgnoreCase("am")) {
@@ -42,11 +50,11 @@ public class Radio {
         return stationNum;
     }
 
-    public List<Station> getStations(String amFm) {
+    protected List<Station> getStations(String amFm) {
         return amFm.equalsIgnoreCase("am") ? amStations : fmStations;
     }
 
-    public void generateStations(String amFm) {
+    protected void generateStations(String amFm) {
         String filePath = System.getProperty("user.dir");
 
         if (amFm.equalsIgnoreCase("am")) {
@@ -72,15 +80,15 @@ public class Radio {
         }
     }
 
-    public void setAmFmMode(String mode) {
+    protected void setAmFmMode(String mode) {
         currentMode = mode;
     }
 
-    public void setVolume(double volume) {
+    protected void setVolume(double volume) {
         this.volume = volume;
     }
 
-    public void setFrequency(String mode, double frequency) {
+    protected void setFrequency(String mode, double frequency) {
         if (mode.equalsIgnoreCase("AM")) {
             amFrequency = frequency;
         } else if (mode.equalsIgnoreCase("FM")) {
@@ -88,19 +96,19 @@ public class Radio {
         }
     }
 
-    public String getCurrentMode() {
+    protected String getCurrentMode() {
         return currentMode;
     }
 
-    public double getCurrentFrequency() {
+    protected double getCurrentFrequency() {
         return (currentMode.equalsIgnoreCase("AM")) ? amFrequency : fmFrequency;
     }
 
-    public double getVolume() {
+    protected double getVolume() {
         return volume;
     }
 
-    public void toggleRadioOnOff() throws IOException {
+    protected void toggleRadioOnOff() throws IOException {
         radioOn = !radioOn;
     }
 }

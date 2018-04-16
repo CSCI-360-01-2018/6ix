@@ -1,13 +1,19 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * CSCI 360 Semester Project
+ * Team 6ix - Dual Alarm Clock Radio
+ * Professor: Dr. Bowring
  */
 package com.csci360.alarmclock;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
+/**
+ * The Clock class keeps time for the system. The user can set and change the time of the clock as well
+ * as set the format for the time to Military or Standard format. The clock also contains the two alarms
+ * and is responsible for alerting the user when an alarm is set to go off and the time has come for it 
+ * to go off.
+ */
 public class Clock {
 
     public boolean isMilitary = false;
@@ -29,7 +35,7 @@ public class Clock {
         startTime();
     }
 
-    public void startTime() {
+    protected void startTime() {
         timeStopped = false;
         time.scheduleAtFixedRate(new TimerTask() {
             @Override
@@ -58,28 +64,28 @@ public class Clock {
         }, 0, ONE_SEC); // 1 second
     }
 
-    public void stopTime() {
+    protected void stopTime() {
         timeStopped = true;
         time.cancel();
         time = new Timer();
     }
 
-    public void setTime(int newHour, int newMin) {
+    protected void setTime(int newHour, int newMin) {
         stopTime();
         hour = newHour;
         minute = newMin;
         startTime();
     }
 
-    public int getHour() {
+    protected int getHour() {
         return this.hour;
     }
 
-    public int getMinute() {
+    protected int getMinute() {
         return this.minute;
     }
 
-    public String getFullTime() {
+    protected String getFullTime() {
         String secFormatted = Integer.toString(seconds);
         if (seconds < 10) {
             secFormatted = "0" + Integer.toString(seconds);
@@ -108,7 +114,7 @@ public class Clock {
         return String.format("%s:%s:%s", hourFormatted, minFormatted, secFormatted);
     }
 
-    public String getTime() {
+    protected String getTime() {
         String minFormatted = Integer.toString(minute);
         if (minute < 10) {
             minFormatted = "0" + Integer.toString(minute);
@@ -132,7 +138,7 @@ public class Clock {
         return String.format("%s:%s", hourFormatted, minFormatted);
     }
 
-    public void changeStandardMilitaryFormat(String format) {
+    protected void changeStandardMilitaryFormat(String format) {
         if (format.equals("military")) {
             isMilitary = true;
             System.out.println("Clock time set to military.");
@@ -142,11 +148,11 @@ public class Clock {
         }
     }
     
-    public boolean isMilitary(){
+    protected boolean isMilitary(){
         return isMilitary;
     }
 
-    public String getFormattedTime() {
+    protected String getFormattedTime() {
         if (isMilitary) {
             return this.getTime();
         } else {
@@ -158,7 +164,7 @@ public class Clock {
         }
     }
 
-    public String getFormattedAlarmTime(int alarmNum) {
+    protected String getFormattedAlarmTime(int alarmNum) {
         if (isMilitary) {
             return this.getAlarmTime(alarmNum);
         } else {
@@ -170,7 +176,7 @@ public class Clock {
         }
     }
 
-    public void checkForAlarm() {
+    protected void checkForAlarm() {
         if (this.getTime().equals(this.getAlarmTime(1)) && alarm1.alarmIsSet) {
             alarm1.toggleAlarmIsOn(true);
         }
@@ -179,11 +185,11 @@ public class Clock {
         }
     }
 
-    public Alarm getAlarm(int alarmNum) {
+    protected Alarm getAlarm(int alarmNum) {
         return (alarmNum == 1) ? alarm1 : alarm2;
     }
 
-    public void setAlarm(int alarmNum, int hour, int minute) {
+    protected void setAlarm(int alarmNum, int hour, int minute) {
         if (alarmNum == 1) {
             alarm1.setAlarmHour(hour);
             alarm1.setAlarmMinute(minute);
@@ -193,7 +199,7 @@ public class Clock {
         }
     }
 
-    public String getAlarmTime(int alarmNum) {
+    protected String getAlarmTime(int alarmNum) {
         String hourFormatted;
         String minFormatted;
         Alarm alarm = (alarmNum == 1) ? alarm1 : alarm2;
